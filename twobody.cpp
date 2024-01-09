@@ -16,19 +16,19 @@ using namespace std;
 
 // initialize the position and velocity of the orbit
 // Miu
-const long double twobody_Miu            = 10.0;
+long double twobody_Miu;            //= 10.0;
 // X
-const long double twobody_X              = 1.1;
+long double twobody_X;              //= 1.1;
 // Y
-const long double twobody_Y              = 0.0;
+long double twobody_Y;              //= 0.0;
 // V_x
-const long double twobody_V_x            = 0.0;
+long double twobody_V_x;            //= 0.0;
 // V_y
-const long double twobody_V_y            = 1.0;
+long double twobody_V_y;            //= 1.0;
 // number of period
-const long double twobody_NumberofPeriod = 2;
+long double twobody_NumberofPeriod; //= 2;
 // TOL
-const long double twobody_TOL            = 1e-12;
+long double twobody_TOL;            //= 1e-12;
 
 // function templates
 template<class T>
@@ -48,7 +48,27 @@ T f3(T t, T y[4]) {
     return -twobody_Miu * y[1] * pow(y[0] * y[0] + y[1] * y[1], -1.5);
 }
 
-int main() {
+int main(int argc, char* arcv) {
+    // 가장 쉬운 예제
+
+    for(int i=0; i< argc; ++i){
+        cout << arcv[i] << endl;;
+    }
+
+    if (argc < 7){
+        cout << "argument error" << endl;
+        return -1;
+    }
+
+    twobody_Miu = arcv[0];
+    twobody_X = arcv[1];
+    twobody_Y = arcv[2];
+    twobody_V_x = arcv[3];
+    twobody_V_y = arcv[4];
+    twobody_NumberofPeriod = arcv[5];
+    twobody_TOL = arcv[6];
+
+
     const char *outputfile = "twobody_output.dat"; // output file
     long double rkf[4] = {twobody_X, twobody_Y, twobody_V_x,
                           twobody_V_y}; // variables for rkf
@@ -115,7 +135,8 @@ int main() {
     outfile.close();
     // output to screen
     cout << "Energy begin: " << setiosflags(ios::scientific)
-         << setprecision(18) << energy_begin << endl
+         << setprecision(18) << energy_begin << 
+         endl
          << "Energy end: " << energy_end << endl
          << "Energy error: " << energy_err << endl
          << "Energy relative error: " << resetiosflags(ios::scientific)
