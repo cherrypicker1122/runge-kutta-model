@@ -55,6 +55,9 @@ int main(int argc, char* arcv) {
         cout << arcv[i] << endl;;
     }
 
+    //debugging
+    return 0;
+
     if (argc < 7){
         cout << "argument error" << endl;
         return -1;
